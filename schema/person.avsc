@@ -1,0 +1,30 @@
+{
+    "type": "record",
+    "namespace": "org.fretron.avro",
+    "name": "Person",
+    "fields": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "age",
+            "type": "int"
+        },
+        {
+            "name": "address",
+            "type": "string"
+        },
+        {
+            "name": "currentWealth",
+            "type": "double"
+        },
+        {
+            "name": "lastUpdate",
+            "type": {
+                "type": "long",
+                "logicalType": "utc-to-epoch-millis"
+            }
+        }
+    ]
+}
