@@ -1,17 +1,22 @@
-package org.fretron.api
+package org.fretron.person.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.fretron.model.Person
-import org.fretron.service.PersonServiceImpl
+import org.fretron.person.dao.PersonDao
+import org.fretron.person.dao.PersonDaoImpl
+import org.fretron.person.model.Person
+import org.fretron.person.service.PersonService
+import org.fretron.person.service.PersonServiceImpl
+import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
 @Path("/person/v1")
-class ApiResource {
+class PersonResource(private var personServiceImpl: PersonService) {
 
     private val mapper = ObjectMapper()
-    private val personServiceImpl = PersonServiceImpl()
+
+    constructor() : this(PersonServiceImpl(PersonDaoImpl()))
 
     @POST
     @Path("/person")
@@ -19,7 +24,6 @@ class ApiResource {
     @Consumes(MediaType.APPLICATION_JSON)
     fun addPerson(request: String): Response {
         val person = mapper.readValue(request, Person::class.java)
-        println(person)
         return if (personServiceImpl.addPerson(person)) Response.ok("Person Added!!").build()
         else Response.status(Response.Status.INTERNAL_SERVER_ERROR).build()
     }
@@ -28,9 +32,8 @@ class ApiResource {
     @Path("/person")
     @Produces(MediaType.APPLICATION_JSON)
     fun getPerson(@QueryParam("id") id: String): Response {
-        val person = personServiceImpl.getPerson(id).orElse(null)
-        return if (person == null) Response.status(Response.Status.NOT_FOUND).build()
-        else Response.ok(person.toString()).build()
+        val person = personServiceImpl.getPerson(id) ?: return Response.status(Response.Status.NOT_FOUND).build()
+        return Response.ok(person.toString()).build()
     }
 
     @GET
@@ -47,7 +50,6 @@ class ApiResource {
     @Produces(MediaType.TEXT_PLAIN)
     fun updatePerson(@QueryParam("id") id: String, request: String): Response {
         val person = mapper.readValue(request, Person::class.java)
-        println("Update Person With Id $id :: $person")
         return if (person != null) {
             if (personServiceImpl.updatePerson(id, person)) Response.ok("Person Updated!!").build()
             else Response.status(Response.Status.INTERNAL_SERVER_ERROR).build()

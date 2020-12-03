@@ -1,5 +1,5 @@
 import com.sun.net.httpserver.HttpServer
-import org.fretron.api.ApiResource
+import org.fretron.person.api.PersonResource
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory
 import org.glassfish.jersey.server.ResourceConfig
 import java.net.URI
@@ -11,7 +11,7 @@ class Server {
     private val HOST_NAME = "http://localhost/"
 
     fun startServer(): HttpServer {
-        val config = ResourceConfig(ApiResource::class.java)
+        val config = ResourceConfig(PersonResource::class.java)
         return JdkHttpServerFactory.createHttpServer(getBaseURI(), config)
     }
 

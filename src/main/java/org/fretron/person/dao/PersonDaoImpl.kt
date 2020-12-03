@@ -1,7 +1,9 @@
-package org.fretron.dao
+package org.fretron.person.dao
 
-import org.fretron.model.Person
+import org.fretron.person.model.Person
 import java.util.*
+import java.util.stream.Collector
+import java.util.stream.Collectors
 
 class PersonDaoImpl : PersonDao {
 
@@ -14,9 +16,8 @@ class PersonDaoImpl : PersonDao {
     }
 
     override fun deletePerson(id: String): Boolean {
-        val havePerson: Optional<Person> = getPerson(id)
-        return if (havePerson.isPresent) personsList.remove(havePerson.get())
-        else false
+        personsList = personsList.stream().filter { person -> person.id != id }.collect(Collectors.toList()) as ArrayList<Person>
+        return true
     }
 
     override fun updatePerson(id: String, person: Person): Boolean {
@@ -25,8 +26,8 @@ class PersonDaoImpl : PersonDao {
         return index != -1
     }
 
-    override fun getPerson(id: String): Optional<Person> {
-        return personsList.stream().filter { person -> person.id == id }.findFirst()
+    override fun getPerson(id: String): Person? {
+        return personsList.stream().filter { person -> person.id == id }.findFirst().orElse(null)
     }
 
     override fun getAllPersons(): List<Person> {

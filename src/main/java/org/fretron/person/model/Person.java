@@ -3,7 +3,7 @@
  * <p>
  * DO NOT EDIT DIRECTLY
  */
-package org.fretron.model;
+package org.fretron.person.model;
 
 import org.apache.avro.message.BinaryMessageDecoder;
 import org.apache.avro.message.BinaryMessageEncoder;
@@ -120,8 +120,8 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
      *
      * @return A new Person RecordBuilder
      */
-    public static org.fretron.model.Person.Builder newBuilder() {
-        return new org.fretron.model.Person.Builder();
+    public static Person.Builder newBuilder() {
+        return new Person.Builder();
     }
 
     /**
@@ -130,11 +130,11 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
      * @param other The existing builder to copy.
      * @return A new Person RecordBuilder
      */
-    public static org.fretron.model.Person.Builder newBuilder(org.fretron.model.Person.Builder other) {
+    public static Person.Builder newBuilder(Person.Builder other) {
         if (other == null) {
-            return new org.fretron.model.Person.Builder();
+            return new Person.Builder();
         } else {
-            return new org.fretron.model.Person.Builder(other);
+            return new Person.Builder(other);
         }
     }
 
@@ -144,11 +144,11 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
      * @param other The existing instance to copy.
      * @return A new Person RecordBuilder
      */
-    public static org.fretron.model.Person.Builder newBuilder(org.fretron.model.Person other) {
+    public static Person.Builder newBuilder(Person other) {
         if (other == null) {
-            return new org.fretron.model.Person.Builder();
+            return new Person.Builder();
         } else {
-            return new org.fretron.model.Person.Builder(other);
+            return new Person.Builder(other);
         }
     }
 
@@ -367,7 +367,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          *
          * @param other The existing Builder to copy.
          */
-        private Builder(org.fretron.model.Person.Builder other) {
+        private Builder(Person.Builder other) {
             super(other);
             if (isValidValue(fields()[0], other.id)) {
                 this.id = data().deepCopy(fields()[0].schema(), other.id);
@@ -400,7 +400,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          *
          * @param other The existing instance to copy.
          */
-        private Builder(org.fretron.model.Person other) {
+        private Builder(Person other) {
             super(SCHEMA$);
             if (isValidValue(fields()[0], other.id)) {
                 this.id = data().deepCopy(fields()[0].schema(), other.id);
@@ -444,7 +444,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          * @param value The value of 'id'.
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder setId(java.lang.CharSequence value) {
+        public Person.Builder setId(java.lang.CharSequence value) {
             validate(fields()[0], value);
             this.id = value;
             fieldSetFlags()[0] = true;
@@ -466,7 +466,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          *
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder clearId() {
+        public Person.Builder clearId() {
             id = null;
             fieldSetFlags()[0] = false;
             return this;
@@ -488,7 +488,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          * @param value The value of 'name'.
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder setName(java.lang.CharSequence value) {
+        public Person.Builder setName(java.lang.CharSequence value) {
             validate(fields()[1], value);
             this.name = value;
             fieldSetFlags()[1] = true;
@@ -510,7 +510,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          *
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder clearName() {
+        public Person.Builder clearName() {
             name = null;
             fieldSetFlags()[1] = false;
             return this;
@@ -532,7 +532,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          * @param value The value of 'age'.
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder setAge(int value) {
+        public Person.Builder setAge(int value) {
             validate(fields()[2], value);
             this.age = value;
             fieldSetFlags()[2] = true;
@@ -554,7 +554,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          *
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder clearAge() {
+        public Person.Builder clearAge() {
             fieldSetFlags()[2] = false;
             return this;
         }
@@ -575,7 +575,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          * @param value The value of 'address'.
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder setAddress(java.lang.CharSequence value) {
+        public Person.Builder setAddress(java.lang.CharSequence value) {
             validate(fields()[3], value);
             this.address = value;
             fieldSetFlags()[3] = true;
@@ -597,7 +597,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          *
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder clearAddress() {
+        public Person.Builder clearAddress() {
             address = null;
             fieldSetFlags()[3] = false;
             return this;
@@ -619,7 +619,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          * @param value The value of 'currentWealth'.
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder setCurrentWealth(double value) {
+        public Person.Builder setCurrentWealth(double value) {
             validate(fields()[4], value);
             this.currentWealth = value;
             fieldSetFlags()[4] = true;
@@ -641,7 +641,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          *
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder clearCurrentWealth() {
+        public Person.Builder clearCurrentWealth() {
             fieldSetFlags()[4] = false;
             return this;
         }
@@ -662,7 +662,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          * @param value The value of 'lastUpdate'.
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder setLastUpdate(long value) {
+        public Person.Builder setLastUpdate(long value) {
             validate(fields()[5], value);
             this.lastUpdate = value;
             fieldSetFlags()[5] = true;
@@ -684,7 +684,7 @@ public class Person extends org.apache.avro.specific.SpecificRecordBase implemen
          *
          * @return This builder.
          */
-        public org.fretron.model.Person.Builder clearLastUpdate() {
+        public Person.Builder clearLastUpdate() {
             fieldSetFlags()[5] = false;
             return this;
         }

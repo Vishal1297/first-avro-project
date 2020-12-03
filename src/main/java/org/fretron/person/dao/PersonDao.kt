@@ -1,14 +1,13 @@
-package org.fretron.dao
+package org.fretron.person.dao
 
-import org.fretron.model.Person
-import java.util.*
+import org.fretron.person.model.Person
 
 interface PersonDao {
 
     fun addPerson(person: Person): Boolean
     fun deletePerson(id: String): Boolean
     fun updatePerson(id: String, person: Person): Boolean
-    fun getPerson(id: String): Optional<Person>
+    fun getPerson(id: String): Person?
     fun getAllPersons(): List<Person>
 
 }

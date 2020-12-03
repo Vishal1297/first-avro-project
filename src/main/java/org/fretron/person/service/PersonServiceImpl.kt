@@ -1,12 +1,11 @@
-package org.fretron.service
+package org.fretron.person.service
 
-import org.fretron.dao.PersonDaoImpl
-import org.fretron.model.Person
-import java.util.*
+import org.fretron.person.dao.PersonDao
+import org.fretron.person.model.Person
+import javax.inject.Inject
+import javax.ws.rs.Path
 
-class PersonServiceImpl : PersonService {
-
-    private val personDaoImpl = PersonDaoImpl()
+class PersonServiceImpl(private val personDaoImpl: PersonDao) : PersonService {
 
     override fun addPerson(person: Person): Boolean {
         return personDaoImpl.addPerson(person)
@@ -20,7 +19,7 @@ class PersonServiceImpl : PersonService {
         return personDaoImpl.updatePerson(id, person)
     }
 
-    override fun getPerson(id: String): Optional<Person> {
+    override fun getPerson(id: String): Person? {
         return personDaoImpl.getPerson(id)
     }
 
