@@ -2,8 +2,6 @@ package org.fretron.person.service
 
 import org.fretron.person.dao.PersonDao
 import org.fretron.person.model.Person
-import javax.inject.Inject
-import javax.ws.rs.Path
 
 class PersonServiceImpl(private val personDaoImpl: PersonDao) : PersonService {
 

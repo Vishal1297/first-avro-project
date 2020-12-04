@@ -1,12 +1,10 @@
 package org.fretron.person.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.fretron.person.dao.PersonDao
-import org.fretron.person.dao.PersonDaoImpl
+import org.fretron.person.dao.MongoDBPersonDaoImpl
 import org.fretron.person.model.Person
 import org.fretron.person.service.PersonService
 import org.fretron.person.service.PersonServiceImpl
-import javax.inject.Inject
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
@@ -16,7 +14,7 @@ class PersonResource(private var personServiceImpl: PersonService) {
 
     private val mapper = ObjectMapper()
 
-    constructor() : this(PersonServiceImpl(PersonDaoImpl()))
+    constructor() : this(PersonServiceImpl(MongoDBPersonDaoImpl()))
 
     @POST
     @Path("/person")
@@ -38,10 +36,10 @@ class PersonResource(private var personServiceImpl: PersonService) {
 
     @GET
     @Path("/persons")
-    @Produces(MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     fun getAllPersons(): Response {
-        val personsList = personServiceImpl.getAllPersons().toString()
-        return Response.ok(personsList).build()
+        val personsList = personServiceImpl.getAllPersons()
+        return Response.ok(personsList.toString()).build()
     }
 
     @PUT
@@ -50,6 +48,7 @@ class PersonResource(private var personServiceImpl: PersonService) {
     @Produces(MediaType.TEXT_PLAIN)
     fun updatePerson(@QueryParam("id") id: String, request: String): Response {
         val person = mapper.readValue(request, Person::class.java)
+        println("Update Person :: $id && Person $person")
         return if (person != null) {
             if (personServiceImpl.updatePerson(id, person)) Response.ok("Person Updated!!").build()
             else Response.status(Response.Status.INTERNAL_SERVER_ERROR).build()

@@ -4,13 +4,6 @@
   "name": "Person",
   "fields": [
     {
-      "name": "id",
-      "type": {
-        "type": "string",
-        "logicalType": "uuid"
-      }
-    },
-    {
       "name": "name",
       "type": "string"
     },
@@ -26,7 +19,7 @@
     {
       "name": "currentWealth",
       "type": "double",
-      "default": 0
+      "default": 0.0
     },
     {
       "name": "lastUpdate",
