@@ -28,7 +28,7 @@ public class Response<T> {
     }
 
     public static <T> Response<T> ok(T data, Long syncUpTime) {
-        return new Response<>(200, null, data, syncUpTime);
+        return new Response<T>(200, null, data, syncUpTime);
     }
 
     public static Response error(String error) {
