@@ -8,8 +8,11 @@ import com.mongodb.client.model.Filters
 import com.mongodb.util.JSON
 import org.bson.Document
 import org.bson.conversions.Bson
+import org.fretron.person.constants.AppConstants
+import org.fretron.person.exceptions.MongoDBException
 import org.fretron.person.model.Person
 import java.util.*
+import kotlin.jvm.Throws
 
 
 class MongoDBPersonDaoImpl : PersonDao {
@@ -31,6 +34,7 @@ class MongoDBPersonDaoImpl : PersonDao {
         return UUID.randomUUID()
     }
 
+    @Throws(MongoDBException::class)
     override fun addPerson(person: Person): Boolean {
         createConnection()
         val collection = mongoDatabase?.getCollection("person")
@@ -38,25 +42,23 @@ class MongoDBPersonDaoImpl : PersonDao {
         return if (personToAdd != null) {
             val document = Document.parse(personToAdd.toString())
             document["_id"] = generatePersonId().toString()
-            println("Add Person :: $document")
             collection?.insertOne(document)
             closeConnection()
             true
         } else false
     }
 
+    @Throws(MongoDBException::class)
     override fun deletePerson(id: String): Boolean {
         createConnection()
         val collection = mongoDatabase?.getCollection("person")
-        println("Delete Person With ID :: $id ")
         val mongoCollection = collection?.deleteOne(Filters.eq("_id", id))
-        if (mongoCollection != null) {
-            println("Delete :: ${mongoCollection.deletedCount}")
-        }
         closeConnection()
-        return true
+        if (mongoCollection?.deletedCount == "1".toLong()) return true
+        else throw MongoDBException("${AppConstants.PERSON_NOT_DELETED} With Id : $id")
     }
 
+    @Throws(MongoDBException::class)
     override fun updatePerson(id: String, person: Person): Boolean {
         createConnection()
         val collection = mongoDatabase?.getCollection("person")
@@ -65,11 +67,11 @@ class MongoDBPersonDaoImpl : PersonDao {
         val personDocument = Document.parse(person.toString())
         val update: Bson = Document("\$set", personDocument)
         val mongoCollection = collection?.findOneAndUpdate(query, update)
-        println("Updated Person :: $mongoCollection")
         closeConnection()
         return true
     }
 
+    @Throws(MongoDBException::class)
     override fun getPerson(id: String): Person? {
         createConnection()
         val collection = mongoDatabase?.getCollection("person")
@@ -84,11 +86,12 @@ class MongoDBPersonDaoImpl : PersonDao {
                 person = mapper.readValue(json, Person::class.java)
             }
         }
-        println("Get Persons With ID :: $id \n $person")
         closeConnection()
+        if (person == null) throw MongoDBException("${AppConstants.PERSON_NOT_FOUND} At Id : $id")
         return person
     }
 
+    @Throws(MongoDBException::class)
     override fun getAllPersons(): ArrayList<Person> {
         val allPersons: ArrayList<Person> = ArrayList()
         createConnection()
@@ -102,7 +105,6 @@ class MongoDBPersonDaoImpl : PersonDao {
                 allPersons.add(person)
             }
         }
-        println("Get All Persons \n $allPersons")
         closeConnection()
         return allPersons
     }

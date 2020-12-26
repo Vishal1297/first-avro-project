@@ -5,20 +5,20 @@
   "fields": [
     {
       "name": "name",
-      "type": "string"
+      "type": ["string", "null"]
     },
     {
       "name": "age",
-      "type": "int"
+      "type": ["int", "null"]
     },
     {
       "name": "address",
-      "type": "string",
-      "default": "null"
+      "type": ["null", "string"],
+      "default": null
     },
     {
       "name": "currentWealth",
-      "type": "double",
+      "type": ["double", "null"],
       "default": 0.0
     },
     {

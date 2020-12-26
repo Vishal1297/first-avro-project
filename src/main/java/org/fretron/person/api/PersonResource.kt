@@ -1,6 +1,7 @@
 package org.fretron.person.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.fretron.person.constants.AppConstants
 import org.fretron.person.dao.MongoDBPersonDaoImpl
 import org.fretron.person.model.Person
 import org.fretron.person.service.PersonService
@@ -18,19 +19,19 @@ class PersonResource(private var personServiceImpl: PersonService) {
 
     @POST
     @Path("/person")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     fun addPerson(request: String): Response {
         val person = mapper.readValue(request, Person::class.java)
-        return if (personServiceImpl.addPerson(person)) Response.ok("Person Added!!").build()
-        else Response.status(Response.Status.INTERNAL_SERVER_ERROR).build()
+        return if (personServiceImpl.addPerson(person)) Response.ok(AppConstants.PERSON_ADDED).build()
+        else Response.ok(AppConstants.PERSON_NOT_ADDED).build()
     }
 
     @GET
     @Path("/person")
     @Produces(MediaType.APPLICATION_JSON)
     fun getPerson(@QueryParam("id") id: String): Response {
-        val person = personServiceImpl.getPerson(id) ?: return Response.status(Response.Status.NOT_FOUND).build()
+        val person = personServiceImpl.getPerson(id)
         return Response.ok(person.toString()).build()
     }
 
@@ -48,12 +49,11 @@ class PersonResource(private var personServiceImpl: PersonService) {
     @Produces(MediaType.TEXT_PLAIN)
     fun updatePerson(@QueryParam("id") id: String, request: String): Response {
         val person = mapper.readValue(request, Person::class.java)
-        println("Update Person :: $id && Person $person")
         return if (person != null) {
-            if (personServiceImpl.updatePerson(id, person)) Response.ok("Person Updated!!").build()
-            else Response.status(Response.Status.INTERNAL_SERVER_ERROR).build()
+            if (personServiceImpl.updatePerson(id, person)) Response.ok(AppConstants.PERSON_UPDATED).build()
+            else Response.ok(AppConstants.PERSON_NOT_UPDATED).build()
         } else {
-            Response.status(Response.Status.NOT_MODIFIED).build()
+            Response.ok(AppConstants.PERSON_NOT_UPDATED).build()
         }
     }
 
@@ -61,8 +61,8 @@ class PersonResource(private var personServiceImpl: PersonService) {
     @Path("/person")
     @Produces(MediaType.TEXT_PLAIN)
     fun deletePerson(@QueryParam("id") id: String): Response {
-        return if (personServiceImpl.deletePerson(id)) Response.ok("Person Deleted!!").build()
-        else Response.status(Response.Status.NOT_MODIFIED).build()
+        return if (personServiceImpl.deletePerson(id)) Response.ok(AppConstants.PERSON_DELETED).build()
+        else Response.ok(AppConstants.PERSON_NOT_DELETED).build()
     }
 
 
