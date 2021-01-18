@@ -1,4 +1,4 @@
-package org.fretron.person.service
+package org.fretron.person.services
 
 import org.fretron.person.constants.AppConstants
 import org.fretron.person.dao.PersonDao

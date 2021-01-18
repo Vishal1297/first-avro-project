@@ -1,4 +1,4 @@
-package org.fretron.person.service
+package org.fretron.person.services
 
 import org.fretron.person.model.Person
 import javax.ws.rs.Path

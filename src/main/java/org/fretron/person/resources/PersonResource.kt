@@ -1,11 +1,11 @@
-package org.fretron.person.api
+package org.fretron.person.resources
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.fretron.person.constants.AppConstants
 import org.fretron.person.dao.MongoDBPersonDaoImpl
 import org.fretron.person.model.Person
-import org.fretron.person.service.PersonService
-import org.fretron.person.service.PersonServiceImpl
+import org.fretron.person.services.PersonService
+import org.fretron.person.services.PersonServiceImpl
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
