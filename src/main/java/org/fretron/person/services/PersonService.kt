@@ -1,8 +1,10 @@
-package org.fretron.person.dao
+package org.fretron.person.services
 
 import org.fretron.person.model.Person
+import javax.ws.rs.Path
 
-interface PersonDao {
+@Path(value = "personService")
+interface PersonService {
 
     fun addPerson(person: Person): Boolean
     fun deletePerson(id: String): Boolean

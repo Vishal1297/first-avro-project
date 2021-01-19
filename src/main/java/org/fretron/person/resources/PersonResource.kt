@@ -1,12 +1,10 @@
-package org.fretron.person.api
+package org.fretron.person.resources
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.fretron.person.dao.PersonDao
-import org.fretron.person.dao.PersonDaoImpl
+import org.fretron.person.repositories.PersonRepositoryImpl
 import org.fretron.person.model.Person
-import org.fretron.person.service.PersonService
-import org.fretron.person.service.PersonServiceImpl
-import javax.inject.Inject
+import org.fretron.person.services.PersonService
+import org.fretron.person.services.PersonServiceImpl
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
@@ -16,7 +14,7 @@ class PersonResource(private var personServiceImpl: PersonService) {
 
     private val mapper = ObjectMapper()
 
-    constructor() : this(PersonServiceImpl(PersonDaoImpl()))
+    constructor() : this(PersonServiceImpl(PersonRepositoryImpl()))
 
     @POST
     @Path("/person")

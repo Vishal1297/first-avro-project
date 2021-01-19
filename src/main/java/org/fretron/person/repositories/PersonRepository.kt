@@ -1,10 +1,8 @@
-package org.fretron.person.service
+package org.fretron.person.repositories
 
 import org.fretron.person.model.Person
-import javax.ws.rs.Path
 
-@Path(value = "personService")
-interface PersonService {
+interface PersonRepository {
 
     fun addPerson(person: Person): Boolean
     fun deletePerson(id: String): Boolean

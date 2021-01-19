@@ -1,11 +1,10 @@
-package org.fretron.person.dao
+package org.fretron.person.repositories
 
 import org.fretron.person.model.Person
 import java.util.*
-import java.util.stream.Collector
 import java.util.stream.Collectors
 
-class PersonDaoImpl : PersonDao {
+class PersonRepositoryImpl : PersonRepository {
 
     companion object {
         var personsList: ArrayList<Person> = arrayListOf()

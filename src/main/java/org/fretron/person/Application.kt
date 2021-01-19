@@ -1,5 +1,7 @@
+package org.fretron.person
+
 import com.sun.net.httpserver.HttpServer
-import org.fretron.person.api.PersonResource
+import org.fretron.person.resources.PersonResource
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory
 import org.glassfish.jersey.server.ResourceConfig
 import java.net.URI
